@@ -84,8 +84,13 @@ end
 
 function Complex:sqrt()
     local sqrtR = math.sqrt(self:abs())
-    local phi = math.atan2(self.imag,self.real)
-    return Complex.new(sqrtR*math.cos(phi/2),sqrtR*math.sin(phi/2))
+    if sqrtR==0 then
+        return Complex.new()
+    else
+        local sinPhi2 = math.sqrt((1-self.real/self:abs())/2)
+        local cosPhi2 = math.sqrt((1+self.real/self:abs())/2)
+        return Complex.new(sqrtR*cosPhi2,sqrtR*sinPhi2)
+    end
 end
 
 return Complex
